@@ -1,15 +1,21 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import Home from './src/pages/home'
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
+import Home from '@pages/home'
 
 const Stack = createNativeStackNavigator()
+const queryClient = new QueryClient()
 
-export default function App() {
+const App = () => {
     return (
-        <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen name='Home' options={{ headerShown: false, title: 'Weather App' }} component={Home} />
-            </Stack.Navigator>
-        </NavigationContainer>
+        <QueryClientProvider client={queryClient}>
+            <NavigationContainer>
+                <Stack.Navigator>
+                    <Stack.Screen name='Home' options={{ headerShown: false, title: 'Weather App' }} component={Home} />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </QueryClientProvider>
     )
 }
+
+export default App

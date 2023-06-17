@@ -1,13 +1,17 @@
 import { useState } from 'react'
-import { View, Image, TextInput, TouchableOpacity, Text, ScrollView } from 'react-native'
+import { View, Image, TextInput, TouchableOpacity, Text, ScrollView, Pressable } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
 import { Calendar, MagnifyingGlass } from '@nandorojo/heroicons/24/outline'
 import { MapPin } from '@nandorojo/heroicons/20/solid'
+import { useQuery } from '@tanstack/react-query'
+import WeatherService from '@services/weather-service'
 
 const Home = () => {
     const [toggle, setToggle] = useState<boolean>(false)
     const [locations, setLocations] = useState<number[]>([1, 2, 3])
+    const { data, refetch } = useQuery(['weathers'], () => WeatherService.getWeatherByValues(), { enabled: false })
+    console.log('data: ', data?.data)
 
     return (
         <View className='flex-1 relative'>
@@ -20,6 +24,11 @@ const Home = () => {
                         {toggle ? <TextInput placeholder='Search' placeholderTextColor='lightgray' className='pl-6 h-10 flex-1 text-base text-white' /> : null}
                         <TouchableOpacity onPress={() => setToggle(!toggle)} className='bg-white/30 rounded-full p-3 m-2'>
                             <MagnifyingGlass width={25} height={25} color='white' />
+                        </TouchableOpacity>
+                    </View>
+                    <View>
+                        <TouchableOpacity onPress={() => refetch()}>
+                            <Text className='text-3xl text-red-300'>Call</Text>
                         </TouchableOpacity>
                     </View>
                     {/* dropdown block */}
