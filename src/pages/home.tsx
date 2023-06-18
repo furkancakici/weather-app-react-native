@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { View, Image, TextInput, TouchableOpacity, Text, ScrollView, Pressable } from 'react-native'
+import { View, Image, TextInput, TouchableOpacity, Text, ScrollView } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
 import { Calendar, MagnifyingGlass } from '@nandorojo/heroicons/24/outline'
@@ -11,7 +11,6 @@ const Home = () => {
     const [toggle, setToggle] = useState<boolean>(false)
     const [locations, setLocations] = useState<number[]>([1, 2, 3])
     const { data, refetch } = useQuery(['weathers'], () => WeatherService.getWeatherByValues(), { enabled: false })
-    console.log('data: ', data?.data)
 
     return (
         <View className='flex-1 relative'>

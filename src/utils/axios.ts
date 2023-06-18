@@ -1,12 +1,19 @@
 import axios from 'axios'
-import { API_KEY } from './constants'
 
-const http = axios
-
-// http://api.weatherapi.com/v1/forecast.json?key=f07394dd9d194b4d9f8152832231106&q=London&days=3&aqi=no&alerts=no
+const http = axios.create({
+    baseURL: 'https://api.weatherapi.com/v1'
+})
 
 http.interceptors.request.use(config => {
-    config.baseURL = 'https://api.weatherapi.com/v1/forecast.json'
+    config.url = '/forecast.json'
+
+    const params = {
+        key: 'f07394dd9d194b4d9f8152832231106',
+        ...config.params
+    }
+
+    config.params = params
+
     return config
 })
 
