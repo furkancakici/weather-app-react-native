@@ -5,15 +5,6 @@ const http = axios.create({
 })
 
 http.interceptors.request.use(config => {
-    config.url = '/forecast.json'
-
-    const params = {
-        key: 'f07394dd9d194b4d9f8152832231106',
-        ...config.params
-    }
-
-    config.params = params
-
     return config
 })
 
